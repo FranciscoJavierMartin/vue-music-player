@@ -88,7 +88,11 @@
             </button>
           </vee-form>
           <!-- Registration Form -->
-          <vee-form v-show="tab === 'register'" :validation-schema="schema">
+          <vee-form
+            v-show="tab === 'register'"
+            :validation-schema="schema"
+            @submit="register"
+          >
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -207,5 +211,9 @@ const hiddenClass = computed<string>(() => modalStore.hiddenClass);
 
 function closeModal(): void {
   modalStore.toggleAuthModal();
+}
+
+function register(values: any): void {
+  console.log(values);
 }
 </script>
