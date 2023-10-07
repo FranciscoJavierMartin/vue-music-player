@@ -162,9 +162,15 @@
             <div class="mb-3 pl-6">
               <vee-field
                 type="checkbox"
+                name="tos"
+                id="tos"
+                value="1"
                 class="w-4 h-4 float-left -ml-6 mt-1 rounded"
               />
-              <label class="inline-block">Accept terms of service</label>
+              <label class="inline-block" for="tos">
+                Accept terms of service
+              </label>
+              <ErrorMessage class="text-red-600" name="tos" />
             </div>
             <button
               type="submit"
@@ -192,7 +198,7 @@ const schema = {
   password: 'required|min:3|max:100',
   confirm_password: 'confirmed:@password',
   country: 'required|excluded:Antartica',
-  tos: '',
+  tos: 'required',
 };
 
 const modalStore = useModalStore();
