@@ -16,7 +16,7 @@
           <div class="flex justify-between items-center pb-4">
             <p class="text-2xl font-bold">Your Account</p>
             <!-- Modal Close Button -->
-            <div class="modal-close cursor-pointer z-50">
+            <div class="modal-close cursor-pointer z-50" @click="closeModal">
               <i class="fas fa-times"></i>
             </div>
           </div>
@@ -121,4 +121,8 @@ import useModalStore from '@/stores/modal'
 const modalStore = useModalStore()
 
 const hiddenClass = computed<string>(() => modalStore.hiddenClass)
+
+function closeModal(): void {
+  useModalStore().isOpen = false
+}
 </script>
