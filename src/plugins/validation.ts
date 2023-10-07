@@ -8,7 +8,9 @@ import {
 import {
   required,
   min,
+  min_value as minVal,
   max,
+  max_value as maxValue,
   email,
   alpha_spaces as alphaSpaces,
 } from '@vee-validate/rules';
@@ -21,7 +23,9 @@ export default {
 
     defineRule('required', required);
     defineRule('min', min);
+    defineRule('min_value', minVal);
     defineRule('max', max);
+    defineRule('max_value', maxValue);
     defineRule('email', email);
     defineRule('alpha_spaces', alphaSpaces);
   },
