@@ -12,6 +12,7 @@ import {
   max,
   max_value as maxValue,
   email,
+  confirmed,
   alpha_spaces as alphaSpaces,
 } from '@vee-validate/rules';
 
@@ -28,5 +29,6 @@ export default {
     defineRule('max_value', maxValue);
     defineRule('email', email);
     defineRule('alpha_spaces', alphaSpaces);
+    defineRule('confirmed', confirmed);
   },
 };
