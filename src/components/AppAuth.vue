@@ -174,7 +174,7 @@ import useModalStore from '@/stores/modal';
 const tab = ref<'login' | 'register'>('login');
 
 const schema = {
-  name: 'required',
+  name: 'required|min:3|max:100|alpha_spaces',
   email: '',
   age: '',
   password: '',
