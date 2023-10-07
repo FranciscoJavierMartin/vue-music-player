@@ -7,7 +7,9 @@ export default defineStore('modal', () => {
   const hiddenClass = computed<string>(() => (isOpen.value ? '' : 'hidden'));
 
   function toggleAuthModal(): void {
+    console.log('Hello', isOpen.value)
     isOpen.value = !isOpen.value;
+    console.log('Bye', isOpen.value)
   }
 
   return { isOpen, hiddenClass, toggleAuthModal };

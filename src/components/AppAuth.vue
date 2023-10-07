@@ -34,20 +34,34 @@
           <ul class="flex flex-wrap mb-4">
             <li class="flex-auto text-center">
               <a
-                class="block rounded py-3 px-4 transition hover:text-white text-white bg-blue-600"
+                class="block rounded py-3 px-4 transition"
                 href="#"
-                >Login</a
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'login',
+                  'hover:text-blue-600': tab === 'register',
+                }"
+                @click.prevent="tab = 'login'"
               >
+                Login
+              </a>
             </li>
             <li class="flex-auto text-center">
-              <a class="block rounded py-3 px-4 transition" href="#"
-                >Register</a
+              <a
+                class="block rounded py-3 px-4 transition"
+                href="#"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'register',
+                  'hover:text-blue-600': tab === 'login',
+                }"
+                @click.prevent="tab = 'register'"
               >
+                Register
+              </a>
             </li>
           </ul>
 
           <!-- Login Form -->
-          <form>
+          <form v-show="tab === 'login'">
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
@@ -74,7 +88,7 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <form>
+          <form v-show="tab === 'register'">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -153,10 +167,13 @@
 
 <script setup lang="ts">
 import useModalStore from '@/stores/modal';
+import { ref, computed } from 'vue';
+
+const tab = ref<'login' | 'register'>('login');
 
 const modalStore = useModalStore();
 
-const hiddenClass = modalStore.hiddenClass;
+const hiddenClass = computed<string>(() => modalStore.hiddenClass);
 
 function closeModal(): void {
   modalStore.toggleAuthModal();
