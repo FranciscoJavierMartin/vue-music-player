@@ -9,7 +9,13 @@
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
           <li>
-            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">Login / Register</a>
+            <a
+              class="px-2 text-white"
+              href="#"
+              @click.prevent="toggleAuthModal"
+            >
+              Login / Register
+            </a>
           </li>
           <li>
             <a class="px-2 text-white" href="#">Manage</a>
@@ -21,12 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import useModalStore from '@/stores/modal'
+import useModalStore from '@/stores/modal';
 
-const modalStore = useModalStore()
+const modalStore = useModalStore();
 
 function toggleAuthModal(): void {
-  modalStore.isOpen = !modalStore.isOpen
-  console.log(modalStore.isOpen)
+  modalStore.toggleAuthModal();
 }
 </script>
