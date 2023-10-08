@@ -88,6 +88,13 @@
             </button>
           </vee-form>
           <!-- Registration Form -->
+          <div
+            v-if="regShowAlert"
+            class="text-white text-center font-bold p-4 rounded mb-4"
+            :class="regAlertVariant"
+          >
+            {{ regAlertMsg }}
+          </div>
           <vee-form
             v-show="tab === 'register'"
             :validation-schema="schema"
@@ -188,6 +195,7 @@
             <button
               type="submit"
               class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+              :disabled="regInSubmission"
             >
               Submit
             </button>
@@ -203,6 +211,11 @@ import { ref, computed, reactive } from 'vue';
 import useModalStore from '@/stores/modal';
 
 const tab = ref<'login' | 'register'>('login');
+const regInSubmission = ref<boolean>(false);
+const regShowAlert = ref<boolean>(false);
+const regAlertVariant = ref<string>('bg-blue-500');
+const regAlertMsg = ref<string>('Please wait! Your account is being created');
+
 const userData = reactive({ country: 'USA' });
 
 const schema = {
@@ -224,6 +237,12 @@ function closeModal(): void {
 }
 
 function register(values: any): void {
-  console.log(values);
+  regShowAlert.value = true;
+  regInSubmission.value = true;
+  regAlertVariant.value = 'bg-blue-500';
+  regAlertMsg.value = 'Please wait! Your account is being created';
+
+  regAlertVariant.value = 'bg-green-500';
+  regAlertMsg.value = 'Success! Your account has been created.';
 }
 </script>
