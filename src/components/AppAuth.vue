@@ -91,6 +91,7 @@
           <vee-form
             v-show="tab === 'register'"
             :validation-schema="schema"
+            :initial-values="userData"
             @submit="register"
           >
             <!-- Name -->
@@ -129,12 +130,20 @@
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
               <vee-field
-                type="password"
                 name="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
-              <ErrorMessage class="text-red-600" name="password" />
+                :bails="false"
+                v-slot="{ field, errors }"
+              >
+                <input
+                  type="password"
+                  class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+                  placeholder="Password"
+                  v-bind="field"
+                />
+                <div v-for="error in errors" :key="error" class="text-red-600">
+                  {{ error }}
+                </div>
+              </vee-field>
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
@@ -190,19 +199,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import useModalStore from '@/stores/modal';
 
 const tab = ref<'login' | 'register'>('login');
+const userData = reactive({ country: 'USA' });
 
 const schema = {
   name: 'required|min:3|max:100|alpha_spaces',
   email: 'required|min:3|max:100|email',
   age: 'required|min_value:18|max_value:100',
-  password: 'required|min:3|max:100',
-  confirm_password: 'confirmed:@password',
-  country: 'required|excluded:Antartica',
-  tos: 'required',
+  password: 'required|min:3|max:100|excluded:password',
+  confirm_password: 'password_mismatch:@password',
+  country: 'required|country_excluded:Antartica',
+  tos: 'tos',
 };
 
 const modalStore = useModalStore();
