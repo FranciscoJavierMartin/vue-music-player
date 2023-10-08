@@ -61,15 +61,21 @@
           </ul>
 
           <!-- Login Form -->
-          <vee-form v-show="tab === 'login'">
+          <vee-form
+            v-show="tab === 'login'"
+            :validation-schema="loginSchema"
+            @submit="login"
+          >
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
                 type="email"
+                name="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
               />
+              <ErrorMessage class="text-red-600" name="email" />
             </div>
             <!-- Password -->
             <div class="mb-3">
@@ -97,7 +103,7 @@
           </div>
           <vee-form
             v-show="tab === 'register'"
-            :validation-schema="schema"
+            :validation-schema="registerSchema"
             :initial-values="userData"
             @submit="register"
           >
@@ -218,7 +224,12 @@ const regAlertMsg = ref<string>('Please wait! Your account is being created');
 
 const userData = reactive({ country: 'USA' });
 
-const schema = {
+const loginSchema = {
+  email: 'required|min:3|max:100|email',
+
+}
+
+const registerSchema = {
   name: 'required|min:3|max:100|alpha_spaces',
   email: 'required|min:3|max:100|email',
   age: 'required|min_value:18|max_value:100',
@@ -234,6 +245,10 @@ const hiddenClass = computed<string>(() => modalStore.hiddenClass);
 
 function closeModal(): void {
   modalStore.toggleAuthModal();
+}
+
+function login(values: any):void {
+
 }
 
 function register(values: any): void {
