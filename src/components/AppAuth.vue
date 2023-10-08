@@ -80,11 +80,13 @@
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
                 type="password"
+                name="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
               />
+              <ErrorMessage class="text-red-600" name="password" />
             </div>
             <button
               type="submit"
@@ -225,9 +227,9 @@ const regAlertMsg = ref<string>('Please wait! Your account is being created');
 const userData = reactive({ country: 'USA' });
 
 const loginSchema = {
-  email: 'required|min:3|max:100|email',
-
-}
+  email: 'required|email',
+  password: 'required|min:3|max:100',
+};
 
 const registerSchema = {
   name: 'required|min:3|max:100|alpha_spaces',
@@ -247,9 +249,7 @@ function closeModal(): void {
   modalStore.toggleAuthModal();
 }
 
-function login(values: any):void {
-
-}
+function login(values: any): void {}
 
 function register(values: any): void {
   regShowAlert.value = true;
